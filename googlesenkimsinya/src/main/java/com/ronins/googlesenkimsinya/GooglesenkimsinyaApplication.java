@@ -9,4 +9,5 @@ public class GooglesenkimsinyaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GooglesenkimsinyaApplication.class, args);
 	}
+
 }

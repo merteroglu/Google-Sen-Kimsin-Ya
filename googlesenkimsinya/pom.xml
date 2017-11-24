@@ -49,6 +49,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-themes</artifactId>
+			<version>${vaadin.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<dependencyManagement>
@@ -68,6 +75,8 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+
+
 			</plugin>
 		</plugins>
 	</build>
