@@ -42,7 +42,7 @@ public class UrlPlacement extends UI {
 
 
         btnSearch.addClickListener(clickEvent -> {
-            List<Pages> pages = searchWords.rankPages(links.getValue(),words.getValue());
+            List<Pages> pages = searchWords.topSecretAlgorithm(links.getValue(),words.getValue());
             for (int i = 0; i < pages.size() ; i++) {
                  Label label = new Label(pages.get(i).getURL() + " \n" + pages.get(i).getRank() + "\n" );
                 for (int j = 0; j < pages.get(i).getWordsCount().length ; j++) {

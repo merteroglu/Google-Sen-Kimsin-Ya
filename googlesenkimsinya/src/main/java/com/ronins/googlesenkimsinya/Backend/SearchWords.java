@@ -112,6 +112,82 @@ public class SearchWords {
        return pagesList;
     }
 
+    public List<Pages> topSecretAlgorithm(String links, String words){
+        String linksArray[] = links.split(","); // contains URLS in every index
+        String wordsArray[] = words.split(","); // contains keywords in every index
+        List<Pages> pageList = new ArrayList<>(); // ?
+
+        int URLSnWordCount[][] = new int[linksArray.length][wordsArray.length]; // will contain URLS and keyword counts for every URL
+        double URLQuality[] = new double[linksArray.length]; // will contain our qualification points for URLS, low points = better pages
+
+        for(int i = 0; i<linksArray.length; i++){
+            for(int j = 0; j<wordsArray.length; j++){
+                URLSnWordCount[i][j] = getWordsCount(linksArray[i],wordsArray[j]); // now contains URLS and keyword counts for every URL
+            }
+        }
+
+        double standardError[] = new double[linksArray.length]; // will contain standardError for every URL's keyword count.
+        double keyWordSum[] = new double[linksArray.length]; // will contain sum of keywords for every URL
+        double average[] = new double[linksArray.length]; // will contain keyword averages for every URL
+
+        for(int i = 0; i<linksArray.length; i++){
+            for(int j = 0; j<wordsArray.length; j++){
+                keyWordSum[i] += URLSnWordCount[i][j]; // now keyWordSum contains keyword sums for every URL
+            }
+            average[i] = keyWordSum[i] / wordsArray.length; // now average contains keyword averages for every URL
+        }
+
+        for(int i = 0; i<linksArray.length; i++){ //  Calculation for part of standardError
+            for(int j = 0; j<wordsArray.length; j++){
+                standardError[i] += Math.pow(URLSnWordCount[i][j] - average[i],2);
+            }
+        }
+
+        for(int i = 0; i<linksArray.length; i++){ // URLQuality calculation
+            if(standardError[i]!=0){
+                standardError[i] = Math.sqrt(standardError[i] /= (wordsArray.length - 1));
+                URLQuality[i] = standardError[i] / Math.pow(keyWordSum[i],2);
+            }else{
+                URLQuality[i] = 1/Math.pow(keyWordSum[i],2);
+            }
+        }
+
+        for(int i = 0; i<linksArray.length; i++){ // Double URLQuality Point if one of the keywords missing in that url so it loses its quality
+            for(int j = 0; j<wordsArray.length; j++){
+                if(URLSnWordCount[i][j]==0){
+                    URLQuality[i] = URLQuality[i] * 2;
+                }
+            }
+        }
+
+        int URLQualityOrder[] = new int[linksArray.length];
+        for (int i = 0; i <URLQualityOrder.length ; i++) {
+            URLQualityOrder[i] = 1; // Now every URL has the number 1
+        }
+
+        for(int i = 0; i<linksArray.length; i++){ // Assign URL orders
+            for(int j = 0; j<linksArray.length; j++){
+                if(URLQuality[i]>URLQuality[j]){ // if url quality of j is higher than i
+                    URLQualityOrder[i]++;
+                }else if(URLQuality[i]==URLQuality[j]){
+                    if(keyWordSum[i]<keyWordSum[j]){
+                        URLQualityOrder[i]++;
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < linksArray.length ; i++) { // URLS added to list
+            Pages page = new Pages();
+            page.setURL(linksArray[i]);
+            page.setWordsCount(URLSnWordCount[i]);
+            page.setRank(URLQualityOrder[i]);
+            pageList.add(page);
+        }
+
+        return pageList;
+    }
+
     public List<String> getLinks(String URL){
         List<String> links = new ArrayList<>();
         try {
