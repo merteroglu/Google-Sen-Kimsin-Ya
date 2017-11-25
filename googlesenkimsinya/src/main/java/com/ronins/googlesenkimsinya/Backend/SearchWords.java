@@ -5,6 +5,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ public class SearchWords {
 
     Logger log = Logger.getLogger("Search Words");
 
-    Document doc;
+
 
     public SearchWords() {
 
@@ -25,6 +26,7 @@ public class SearchWords {
 
     public int getWordsCount(String URL,String Word){
         int count = 0;
+        Document doc;
         try{
             doc = Jsoup.connect(URL).get();
             Elements elements = doc.select("html");
@@ -33,7 +35,7 @@ public class SearchWords {
             String kelimeler[] = veri.split(" ");
 
             for(int i=0;i<kelimeler.length-1;i++){
-                if(kelimeler[i].equalsIgnoreCase(Word.toUpperCase())){
+                if(kelimeler[i].equalsIgnoreCase(Word)){
                     count++;
                 }
             }
@@ -44,6 +46,37 @@ public class SearchWords {
         return count;
     }
 
+    public int[] getURLWordsCount(String URL,String Words){
+        String[] kelimeler = Words.split(",");
+        int counts[] = new int[kelimeler.length];
+
+        try{
+            Document doc;
+            doc = Jsoup.connect(URL).get();
+            String text = doc.body().text();
+            String allWords[];
+            if(!text.isEmpty()){
+                allWords = text.split("\\s+");
+            }else{
+                return counts;
+            }
+
+            for(int i = 0;i<allWords.length;i++){
+                for (int j = 0; j < kelimeler.length ; j++) {
+                    if(kelimeler[j].equalsIgnoreCase(allWords[i])){
+                        counts[j]++;
+                    }
+                }
+            }
+
+        }catch (Exception e){
+
+        }
+
+    return counts;
+    }
+
+    /*
     public List<Pages> rankPages(String links, String words){
         String linkler[] = links.split(",");
         String kelimeler[] = words.split(",");
@@ -111,6 +144,7 @@ public class SearchWords {
 
        return pagesList;
     }
+        */
 
     public List<Pages> topSecretAlgorithm(String links, String words){
         String linksArray[] = links.split(","); // contains URLS in every index
@@ -121,9 +155,8 @@ public class SearchWords {
         double URLQuality[] = new double[linksArray.length]; // will contain our qualification points for URLS, low points = better pages
 
         for(int i = 0; i<linksArray.length; i++){
-            for(int j = 0; j<wordsArray.length; j++){
-                URLSnWordCount[i][j] = getWordsCount(linksArray[i],wordsArray[j]); // now contains URLS and keyword counts for every URL
-            }
+                //URLSnWordCount[i][j] = getWordsCount(linksArray[i],wordsArray[j]); // now contains URLS and keyword counts for every URL
+                URLSnWordCount[i] = getURLWordsCount(linksArray[i],words);
         }
 
         double standardError[] = new double[linksArray.length]; // will contain standardError for every URL's keyword count.
@@ -191,6 +224,7 @@ public class SearchWords {
     public List<String> getLinks(String URL){
         List<String> links = new ArrayList<>();
         try {
+            Document doc;
             doc = Jsoup.connect(URL).get();
             Elements elements = doc.select("a[href]");
 

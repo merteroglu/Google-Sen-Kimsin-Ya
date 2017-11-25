@@ -15,7 +15,7 @@ import com.vaadin.ui.*;
 @Theme("apptheme")
 @SpringUI(path = "/asama1")
 @UIScope
-public class MainUI extends UI {
+public class SearchWordsUI extends UI {
 
     VerticalLayout root;
     SearchWords searchWords;
@@ -47,8 +47,9 @@ public class MainUI extends UI {
 
         searchWords = new SearchWords();
         btnSearch.addClickListener(clickEvent -> {
-           int count = searchWords.getWordsCount(links.getValue(),words.getValue());
-            Label tekrarSayisi = new Label(words.getValue() + " tekrar Sayisi : " + count);
+          // int count = searchWords.getWordsCount(links.getValue(),words.getValue());
+            int count[] = searchWords.getURLWordsCount(links.getValue(),words.getValue());
+          Label tekrarSayisi = new Label(words.getValue() + " tekrar Sayisi : " + count[0]);
             icerik.addComponent(tekrarSayisi);
         });
 

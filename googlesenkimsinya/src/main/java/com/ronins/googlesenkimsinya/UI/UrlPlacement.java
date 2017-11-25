@@ -27,6 +27,8 @@ public class UrlPlacement extends UI {
         root.setDefaultComponentAlignment(Alignment.TOP_CENTER);
         setContent(root);
 
+
+        Image logo = new Image("",new ThemeResource("img/logo.png"));
         TextField words = new TextField("Words");
         TextField links = new TextField("Links");
         Button btnSearch = new Button("Search");
@@ -35,21 +37,32 @@ public class UrlPlacement extends UI {
         links.setWidth("70%");
         btnSearch.setWidth("70%");
 
-        root.addComponents(words,links,btnSearch);
+        root.addComponents(logo,words,links,btnSearch);
 
         searchWords = new SearchWords();
 
 
 
+
         btnSearch.addClickListener(clickEvent -> {
+         /*  int counts[] = searchWords.getURLWordsCount(links.getValue().split(",")[0],words.getValue());
+            for (int i = 0; i < counts.length; i++) {
+                Label label = new Label("i :" + i + " -> " + counts[i]);
+                root.addComponent(label);
+            }*/
+
+            String kelimeler[] = words.getValue().split(",");
             List<Pages> pages = searchWords.topSecretAlgorithm(links.getValue(),words.getValue());
             for (int i = 0; i < pages.size() ; i++) {
-                 Label label = new Label(pages.get(i).getURL() + " \n" + pages.get(i).getRank() + "\n" );
+                 Label labelURL = new Label("URL : " + pages.get(i).getURL());
+                 Label labelRank = new Label("Rank :" + pages.get(i).getRank());
+                 Label labelWordsCount = new Label(" ");
                 for (int j = 0; j < pages.get(i).getWordsCount().length ; j++) {
-                    label.setValue(label.getValue() +  pages.get(i).getWordsCount()[j] + " \n ");
+                    labelWordsCount.setValue(labelWordsCount.getValue() +   kelimeler[j] + " : " + pages.get(i).getWordsCount()[j] + " ");
                 }
-                root.addComponent(label);
+                root.addComponents(labelURL,labelRank,labelWordsCount);
             }
+
         });
 
     }
