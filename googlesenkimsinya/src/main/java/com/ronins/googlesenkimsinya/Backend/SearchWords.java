@@ -230,7 +230,8 @@ public class SearchWords {
 
             for (Element link : elements) {
                 //log.info( link.attr("abs:href") );
-                links.add(link.attr("abs:href"));
+                if(!links.contains(link.attr(link.attr("abs:href"))))
+                     links.add(link.attr("abs:href"));
             }
 
 
@@ -239,6 +240,29 @@ public class SearchWords {
         }
         return links;
     }
+
+    public List<String> getLinks(List<String> URLs){
+        List<String> links = new ArrayList<>();
+        try {
+            Document doc;
+
+            for (int i = 0; i < URLs.size() ; i++) {
+                doc = Jsoup.connect(URLs.get(i)).get();
+                Elements elements = doc.select("a[href]");
+                for (Element link : elements) {
+                    //log.info( link.attr("abs:href") );
+                    if(!links.contains(link.attr(link.attr("abs:href"))) && !URLs.contains(link.attr(link.attr("abs:href"))) )
+                        links.add(link.attr("abs:href"));
+                }
+            }
+
+        }catch (Exception e){
+
+        }
+        return links;
+    }
+
+
 
     public String getEsAnlam(String word){
         String URL = "http://www.es-anlam.com/kelime/" + word;

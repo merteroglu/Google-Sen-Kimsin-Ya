@@ -11,12 +11,15 @@ import com.vaadin.ui.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Title("Site Sıralama")
 @SpringUI(path = "/asama3")
 @Theme("apptheme")
 @UIScope
 public class SitePlacement extends UI {
+
+    Logger log = Logger.getLogger(SitePlacement.class.getName());
 
     VerticalLayout root;
     List<String> linksAna;
@@ -45,14 +48,13 @@ public class SitePlacement extends UI {
         SearchWords searchWords = new SearchWords();
 
 
-    linksIkinci = new ArrayList<>();
-
         btnSearch.addClickListener(clickEvent -> {
           linksAna = searchWords.getLinks(links.getValue());
             for (int i = 0; i < linksAna.size() ; i++) {
-                linksIkinci.addAll(searchWords.getLinks(linksAna.get(i)));
+                linksIkinci = searchWords.getLinks(linksAna);
             }
-
+            log.info("Derinlik 2 :" + linksAna.size());
+            log.info("Derinlik 3 :" + linksIkinci.size());
         });
 
     }
