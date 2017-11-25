@@ -9,18 +9,14 @@ import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@Title("Site Sıralama")
-@SpringUI(path = "/asama3")
+@Title("Google Sen Kimsin Ya")
+@SpringUI(path = "/asama4")
 @Theme("apptheme")
 @UIScope
-public class SitePlacement extends UI {
+public class EsAnlam extends UI {
 
     VerticalLayout root;
-    List<String> linksAna;
-    List<String> linksIkinci;
+    SearchWords searchWords;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -32,27 +28,20 @@ public class SitePlacement extends UI {
         logo.setStyleName("imgLogo");
         TextArea words = new TextArea("Words");
         words.setWidth("40%");
-        words.setHeight(100,Unit.PIXELS);
         TextArea links = new TextArea("Links");
         links.setWidth("40%");
         links.setHeight(100,Unit.PIXELS);
         Button btnSearch = new Button("Search");
         btnSearch.setWidth("40%");
 
-
         root.addComponents(logo,words,links,btnSearch);
 
-        SearchWords searchWords = new SearchWords();
-
-
-    linksIkinci = new ArrayList<>();
+        searchWords = new SearchWords();
 
         btnSearch.addClickListener(clickEvent -> {
-          linksAna = searchWords.getLinks(links.getValue());
-            for (int i = 0; i < linksAna.size() ; i++) {
-                linksIkinci.addAll(searchWords.getLinks(linksAna.get(i)));
-            }
-
+          String esAnlam = searchWords.getEsAnlam(words.getValue());
+          Label label = new Label(esAnlam);
+          root.addComponent(label);
         });
 
     }

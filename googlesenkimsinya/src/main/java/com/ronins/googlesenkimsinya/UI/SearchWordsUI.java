@@ -24,37 +24,43 @@ public class SearchWordsUI extends UI {
     protected void init(VaadinRequest vaadinRequest) {
         root = new VerticalLayout();
         setContent(root);
+        root.setDefaultComponentAlignment(Alignment.TOP_CENTER);
 
-        VerticalLayout icerik = new VerticalLayout();
+
 
         Image logo = new Image("",new ThemeResource("img/logo.png"));
-
-        logo.setStyleName("logo");
-        icerik.addComponent(logo);
-        icerik.setComponentAlignment(logo, Alignment.TOP_CENTER);
-        icerik.setDefaultComponentAlignment(Alignment.TOP_CENTER);
-        TextField words = new TextField();
+        logo.setStyleName("imgLogo");
+        TextArea words = new TextArea();
         words.setCaption("Word:");
         words.setWidth("50%");
-        TextField links = new TextField();
+        words.setHeight(100,Unit.PIXELS);
+        TextArea links = new TextArea();
         links.setCaption("Link:");
         links.setWidth("50%");
+        links.setHeight(100,Unit.PIXELS);
 
-        icerik.addComponents(words,links);
+        root.addComponents(logo,words,links);
 
         Button btnSearch = new Button("Ara");
         btnSearch.setWidth("50%");
 
         searchWords = new SearchWords();
+
         btnSearch.addClickListener(clickEvent -> {
           // int count = searchWords.getWordsCount(links.getValue(),words.getValue());
+            VerticalLayout vLayout = new VerticalLayout();
+            vLayout.setStyleName("pages-layout");
+            vLayout.setWidth("40%");
             int count[] = searchWords.getURLWordsCount(links.getValue(),words.getValue());
-          Label tekrarSayisi = new Label(words.getValue() + " tekrar Sayisi : " + count[0]);
-            icerik.addComponent(tekrarSayisi);
+            for (int i = 0; i < count.length ; i++) {
+                Label tekrarSayisi = new Label(words.getValue().split(",")[i] + " tekrar Sayisi : " + count[i]);
+                tekrarSayisi.setStyleName("textWords");
+                vLayout.addComponent(tekrarSayisi);
+            }
+            root.addComponent(vLayout);
         });
 
-        icerik.addComponent(btnSearch);
+        root.addComponent(btnSearch);
 
-        root.addComponent(icerik);
     }
 }

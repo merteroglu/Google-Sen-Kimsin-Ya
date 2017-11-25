@@ -29,20 +29,18 @@ public class UrlPlacement extends UI {
 
 
         Image logo = new Image("",new ThemeResource("img/logo.png"));
-        TextField words = new TextField("Words");
-        TextField links = new TextField("Links");
+        logo.setStyleName("imgLogo");
+        TextArea words = new TextArea("Words");
+        words.setWidth("40%");
+        TextArea links = new TextArea("Links");
+        links.setWidth("40%");
+        links.setHeight(100,Unit.PIXELS);
         Button btnSearch = new Button("Search");
-
-        words.setWidth("70%");
-        links.setWidth("70%");
-        btnSearch.setWidth("70%");
+        btnSearch.setWidth("40%");
 
         root.addComponents(logo,words,links,btnSearch);
 
         searchWords = new SearchWords();
-
-
-
 
         btnSearch.addClickListener(clickEvent -> {
          /*  int counts[] = searchWords.getURLWordsCount(links.getValue().split(",")[0],words.getValue());
@@ -53,14 +51,23 @@ public class UrlPlacement extends UI {
 
             String kelimeler[] = words.getValue().split(",");
             List<Pages> pages = searchWords.topSecretAlgorithm(links.getValue(),words.getValue());
+
             for (int i = 0; i < pages.size() ; i++) {
+                VerticalLayout pagesLayout = new VerticalLayout();
+                pagesLayout.setStyleName("pages-layout");
+                pagesLayout.setWidth("40%");
                  Label labelURL = new Label("URL : " + pages.get(i).getURL());
+                 labelURL.setStyleName("textLink");
                  Label labelRank = new Label("Rank :" + pages.get(i).getRank());
+                labelRank.setStyleName("textRank");
                  Label labelWordsCount = new Label(" ");
+                labelWordsCount.setStyleName("textWords");
                 for (int j = 0; j < pages.get(i).getWordsCount().length ; j++) {
                     labelWordsCount.setValue(labelWordsCount.getValue() +   kelimeler[j] + " : " + pages.get(i).getWordsCount()[j] + " ");
                 }
-                root.addComponents(labelURL,labelRank,labelWordsCount);
+
+                pagesLayout.addComponents(labelURL,labelRank,labelWordsCount);
+                root.addComponent(pagesLayout);
             }
 
         });

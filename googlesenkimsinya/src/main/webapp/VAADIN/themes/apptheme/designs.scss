@@ -1,3 +1,43 @@
 // Styles imported from Application_Menu.html
 // App shell
 
+.textLink{
+  color:blue;
+  font-size: 16px;
+  text-align: center;
+  margin-top: -25px;
+  font-weight: bold;
+}
+
+.textRank{
+  color: #18b4ff;
+  font-size: 16px;
+  text-align: center;
+  margin-top: -15px;
+  font-weight: bold;
+}
+
+.textWords{
+  color: #ff3b71;
+  font-size: 16px;
+  text-align: center;
+  margin-top: -15px;
+  font-weight: bold;
+}
+
+.inputLinks{
+  word-wrap: break-word;
+}
+
+.pages-layout{
+  background-color: rgba(197, 204, 216,0.5);
+  border-radius: 5px;
+  border-color: #4b4b65;
+  border-style: groove;
+  text-align: center;
+}
+
+.imgLogo{
+  width: 550px;
+  height: 200px;
+}

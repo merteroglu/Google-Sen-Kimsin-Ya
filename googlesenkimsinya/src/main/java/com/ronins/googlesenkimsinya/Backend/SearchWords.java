@@ -240,5 +240,24 @@ public class SearchWords {
         return links;
     }
 
+    public String getEsAnlam(String word){
+        String URL = "http://www.es-anlam.com/kelime/" + word;
+        Document doc;
+        String veri;
+        String esAnlam = new String();
+        try {
+            doc = Jsoup.connect(URL).get();
+            Elements elements = doc.select("#esanlamlar");
+            veri = elements.html();
+            Document docx = Jsoup.parse(veri);
+            Elements elementsx = docx.select("strong");
+            esAnlam = elementsx.html();
+            log.info("Es anlam : "+esAnlam);
+        }catch (Exception e){
+
+        }
+        return esAnlam;
+    }
+
 
 }
