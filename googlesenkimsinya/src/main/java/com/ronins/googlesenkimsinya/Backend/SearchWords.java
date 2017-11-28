@@ -280,8 +280,6 @@ public class SearchWords {
         return links;
     }
 
-
-
     public String getEsAnlam(String word){
         String URL = "http://www.es-anlam.com/kelime/" + word;
         Document doc;
