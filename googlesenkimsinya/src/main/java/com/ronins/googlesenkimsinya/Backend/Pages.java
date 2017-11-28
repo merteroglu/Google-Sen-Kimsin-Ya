@@ -5,6 +5,15 @@ public class Pages {
     private String URL;
     private int rank;
     private int wordsCount[];
+    private double urlQuality;
+
+    public double getUrlQuality() {
+        return urlQuality;
+    }
+
+    public void setUrlQuality(double urlQuality) {
+        this.urlQuality = urlQuality;
+    }
 
     public String getURL() {
         return URL;

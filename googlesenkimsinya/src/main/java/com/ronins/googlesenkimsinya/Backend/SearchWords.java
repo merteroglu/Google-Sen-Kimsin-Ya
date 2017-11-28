@@ -146,7 +146,7 @@ public class SearchWords {
     }
         */
 
-    public List<Pages> topSecretAlgorithm(String links, String words){
+    public List<Pages> URLQualityAlgorithm(String links, String words){
         String linksArray[] = links.split(","); // contains URLS in every index
         String wordsArray[] = words.split(","); // contains keywords in every index
         List<Pages> pageList = new ArrayList<>(); // ?
@@ -215,11 +215,29 @@ public class SearchWords {
             page.setURL(linksArray[i]);
             page.setWordsCount(URLSnWordCount[i]);
             page.setRank(URLQualityOrder[i]);
+            page.setUrlQuality(URLQuality[i]);
             pageList.add(page);
         }
 
         return pageList;
     }
+
+   /* public double algorithmForSubURLS(String links, String words){ // links = main URL and its sub URLS
+        String linksArray[] = links.split(","); // contains URLS in every index
+        String wordsArray[] = words.split(","); // contains keywords in every index
+        List<Pages> URLS = new ArrayList<>(); // ?
+        double qualitySum = 0;
+
+        for(int i = 0; i < linksArray.length; i++){
+            URLS.addAll(URLQualityAlgorithm(linksArray[i],words));
+        }
+
+        for(int i = 0; i < linksArray.length; i++){
+            qualitySum += URLS.get(i).getUrlQuality();
+        }
+
+        return qualitySum;
+    }*/
 
     public List<String> getLinks(String URL){
         List<String> links = new ArrayList<>();

@@ -11,12 +11,15 @@ import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.*;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Title("URL Sıralama")
 @SpringUI(path = "/asama2")
 @Theme("apptheme")
 @UIScope
 public class UrlPlacement extends UI {
+
+    Logger log;
 
     VerticalLayout root;
     SearchWords searchWords;
@@ -50,7 +53,9 @@ public class UrlPlacement extends UI {
             }*/
 
             String kelimeler[] = words.getValue().split(",");
-            List<Pages> pages = searchWords.topSecretAlgorithm(links.getValue(),words.getValue());
+            List<Pages> pages = searchWords.URLQualityAlgorithm(links.getValue(),words.getValue());
+            //log.info(""+(searchWords.algorithmForSubURLS(links.getValue(),words.getValue())));
+
 
             for (int i = 0; i < pages.size() ; i++) {
                 VerticalLayout pagesLayout = new VerticalLayout();
