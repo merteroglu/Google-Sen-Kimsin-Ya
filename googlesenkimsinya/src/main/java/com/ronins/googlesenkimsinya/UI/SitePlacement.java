@@ -22,8 +22,8 @@ public class SitePlacement extends UI {
     Logger log = Logger.getLogger(SitePlacement.class.getName());
 
     VerticalLayout root;
-    List<String> linksAna;
-    List<String> linksIkinci;
+    List<String> linksAna = new ArrayList<>();
+    List<String> linksIkinci = new ArrayList<>();
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
