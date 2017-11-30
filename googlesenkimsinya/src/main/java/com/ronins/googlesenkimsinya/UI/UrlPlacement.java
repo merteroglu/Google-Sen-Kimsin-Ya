@@ -64,7 +64,7 @@ public class UrlPlacement extends UI {
                  Label labelURL = new Label("URL : " + pages.get(i).getURL());
                  labelURL.setStyleName("textLink");
                  Label labelRank = new Label("Rank :" + pages.get(i).getRank());
-                labelRank.setStyleName("textRank");
+                 labelRank.setStyleName("textRank");
                  Label labelWordsCount = new Label(" ");
                 labelWordsCount.setStyleName("textWords");
                 Label labelPuan = new Label("Puan :"  +pages.get(i).getUrlQuality());

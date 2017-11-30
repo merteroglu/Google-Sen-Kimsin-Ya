@@ -54,9 +54,18 @@ public class SitePlacement extends UI {
             double[] puanlar = new double[urls.length];
 
             for (int i = 0; i < urls.length ; i++) {
+                VerticalLayout pagesLayout = new VerticalLayout();
+                pagesLayout.setStyleName("pages-layout");
+                pagesLayout.setWidth("40%");
+
                 puanlar[i] = searchURL.getWebSiteRank(words.getValue(),urls[i]);
-                Label label = new Label(urls[i] + " : " + puanlar[i] );
-                root.addComponent(label);
+                Label labelURL = new Label("URL : " + urls[i]);
+                labelURL.setStyleName("textLink");
+                Label labelPuan = new Label("Puan :"  +puanlar[i]);
+                labelPuan.setStyleName("textPuan");
+
+                pagesLayout.addComponents(labelURL,labelPuan);
+                root.addComponent(pagesLayout);
             }
 
 
