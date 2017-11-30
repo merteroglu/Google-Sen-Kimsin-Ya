@@ -9,7 +9,7 @@ public class SearchURL {
     Logger log = Logger.getLogger(SearchURL.class.getName());
     SearchWords searchWords;
 
-    SearchURL(){
+    public SearchURL(){
         searchWords = new SearchWords();
     }
 

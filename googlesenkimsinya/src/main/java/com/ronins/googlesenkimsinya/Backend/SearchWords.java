@@ -229,11 +229,23 @@ public class SearchWords {
             doc = Jsoup.connect(URL).get();
             Elements elements = doc.select("a[href]");
 
+            for(int i=0;i < 10 && i <elements.size(); i++) {
+                if (!links.contains(elements.get(i).attr(elements.get(i).attr("abs:href")))) {
+                    links.add(elements.get(i).attr("abs:href"));
+                }
+            }
+            /*
             for (Element link : elements) {
                 //log.info( link.attr("abs:href") );
-                if(!links.contains(link.attr(link.attr("abs:href"))))
-                     links.add(link.attr("abs:href"));
-            }
+                if(!links.contains(link.attr(link.attr("abs:href")))){
+                    if(links.size() < 10){
+                        links.add(link.attr("abs:href"));
+                    }else{
+                        break;
+                    }
+
+                }
+             }*/
 
 
         }catch (Exception e){
@@ -250,11 +262,21 @@ public class SearchWords {
             for (int i = 0; i < URLs.size() ; i++) {
                 doc = Jsoup.connect(URLs.get(i)).get();
                 Elements elements = doc.select("a[href]");
-                for (Element link : elements) {
-                    //log.info( link.attr("abs:href") );
-                    if(!links.contains(link.attr(link.attr("abs:href"))) && !URLs.contains(link.attr(link.attr("abs:href"))) )
-                        links.add(link.attr("abs:href"));
+
+                for (int j = 0;j<10 && j < elements.size() ; j++) {
+                    if (!links.contains(elements.get(i).attr(elements.get(i).attr("abs:href"))) && !URLs.contains(elements.get(i).attr(elements.get(i).attr("abs:href")))) {
+                        links.add(elements.get(i).attr("abs:href"));
+                    }
                 }
+                /*for (Element link : elements) {
+                    //log.info( link.attr("abs:href") );
+                    if(!links.contains(link.attr(link.attr("abs:href"))) && !URLs.contains(link.attr(link.attr("abs:href"))) ){
+                        links.add(link.attr("abs:href"));
+                    }else{
+                        break;
+                    }
+
+                }*/
             }
 
         }catch (Exception e){

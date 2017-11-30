@@ -1,5 +1,6 @@
 package com.ronins.googlesenkimsinya.UI;
 
+import com.ronins.googlesenkimsinya.Backend.SearchURL;
 import com.ronins.googlesenkimsinya.Backend.SearchWords;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
@@ -45,17 +46,22 @@ public class SitePlacement extends UI {
 
         root.addComponents(logo,words,links,btnSearch);
 
-        SearchWords searchWords = new SearchWords();
+        SearchURL searchURL = new SearchURL();
 
 
         btnSearch.addClickListener(clickEvent -> {
-          linksAna = searchWords.getLinks(links.getValue());
-            for (int i = 0; i < linksAna.size() ; i++) {
-                linksIkinci = searchWords.getLinks(linksAna);
+            String[] urls = links.getValue().split(",");
+            double[] puanlar = new double[urls.length];
+
+            for (int i = 0; i < urls.length ; i++) {
+                puanlar[i] = searchURL.getWebSiteRank(words.getValue(),urls[i]);
+                Label label = new Label(urls[i] + " : " + puanlar[i] );
+                root.addComponent(label);
             }
-            log.info("Derinlik 2 :" + linksAna.size());
-            log.info("Derinlik 3 :" + linksIkinci.size());
+
+
         });
 
     }
+
 }

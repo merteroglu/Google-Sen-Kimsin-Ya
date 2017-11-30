@@ -67,11 +67,13 @@ public class UrlPlacement extends UI {
                 labelRank.setStyleName("textRank");
                  Label labelWordsCount = new Label(" ");
                 labelWordsCount.setStyleName("textWords");
+                Label labelPuan = new Label("Puan :"  +pages.get(i).getUrlQuality());
+                labelPuan.setStyleName("textPuan");
                 for (int j = 0; j < pages.get(i).getWordsCount().length ; j++) {
                     labelWordsCount.setValue(labelWordsCount.getValue() +   kelimeler[j] + " : " + pages.get(i).getWordsCount()[j] + " ");
                 }
 
-                pagesLayout.addComponents(labelURL,labelRank,labelWordsCount);
+                pagesLayout.addComponents(labelURL,labelRank,labelPuan,labelWordsCount);
                 root.addComponent(pagesLayout);
             }
 
