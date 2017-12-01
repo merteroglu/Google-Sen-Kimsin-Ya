@@ -2,6 +2,7 @@ package com.ronins.googlesenkimsinya.UI;
 
 import com.ronins.googlesenkimsinya.Backend.SearchURL;
 import com.ronins.googlesenkimsinya.Backend.SearchWords;
+import com.ronins.googlesenkimsinya.Backend.URL;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.server.ThemeResource;
@@ -46,11 +47,14 @@ public class SitePlacement extends UI {
 
         root.addComponents(logo,words,links,btnSearch);
 
-        SearchURL searchURL = new SearchURL();
+
 
 
         btnSearch.addClickListener(clickEvent -> {
+            log.info("Buton tıklandı");
+            SearchURL searchURL = new SearchURL(links.getValue(),words.getValue());
             String[] urls = links.getValue().split(",");
+            String[] kelimeler = words.getValue().split(",");
             double[] puanlar = new double[urls.length];
 
             for (int i = 0; i < urls.length ; i++) {
@@ -67,7 +71,7 @@ public class SitePlacement extends UI {
                 pagesLayout.addComponents(labelURL,labelPuan);
                 root.addComponent(pagesLayout);
             }
-
+            log.info("İşlem tamamlandı");
         });
 
     }

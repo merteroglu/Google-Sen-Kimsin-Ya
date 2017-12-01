@@ -229,7 +229,7 @@ public class SearchWords {
 
         try {
             Document doc;
-            doc = Jsoup.connect(URL).get();
+            doc = Jsoup.connect(URL).userAgent("Mozilla").get();
             Elements elements = doc.select("a[href]");
 
             for(Element link : elements) {
