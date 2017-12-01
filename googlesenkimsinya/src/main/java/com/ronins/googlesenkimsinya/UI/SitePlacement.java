@@ -68,7 +68,6 @@ public class SitePlacement extends UI {
                 root.addComponent(pagesLayout);
             }
 
-
         });
 
     }

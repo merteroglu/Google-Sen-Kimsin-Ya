@@ -8,7 +8,9 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import java.io.*;
@@ -224,64 +226,54 @@ public class SearchWords {
 
     public List<String> getLinks(String URL){
         List<String> links = new ArrayList<>();
+
         try {
             Document doc;
             doc = Jsoup.connect(URL).get();
             Elements elements = doc.select("a[href]");
 
-            for(int i=0;i < 10 && i <elements.size(); i++) {
-                if (!links.contains(elements.get(i).attr(elements.get(i).attr("abs:href")))) {
-                    links.add(elements.get(i).attr("abs:href"));
-                }
+            for(Element link : elements) {
+                    links.add(link.attr("abs:href"));
             }
-            /*
-            for (Element link : elements) {
-                //log.info( link.attr("abs:href") );
-                if(!links.contains(link.attr(link.attr("abs:href")))){
-                    if(links.size() < 10){
-                        links.add(link.attr("abs:href"));
-                    }else{
-                        break;
-                    }
-
-                }
-             }*/
 
 
         }catch (Exception e){
 
         }
+        Set<String> hs = new HashSet<>();
+        hs.addAll(links);
+        links.clear();
+        links.addAll(hs);
+
+        for (int i = 0; i < links.size(); i++) {
+            if(links.get(i).contains(".pdf") || links.get(i).contains(".xls") || links.get(i).contains(".png") || links.get(i).contains(".jpg")
+                || links.get(i).contains(".jpeg") ||links.get(i).contains(".gif") || links.get(i).contains(".doc") || links.get(i).contains(".docx") ||
+                    links.get(i).contains(".xlsx") || links.get(i).charAt(links.get(i).length()-1) == '#' || links.get(i).equals(URL)
+                    ){
+               links.remove(i);
+               i--;
+            }
+        }
+
+
         return links;
     }
 
     public List<String> getLinks(List<String> URLs){
         List<String> links = new ArrayList<>();
         try {
-            Document doc;
 
             for (int i = 0; i < URLs.size() ; i++) {
-                doc = Jsoup.connect(URLs.get(i)).get();
-                Elements elements = doc.select("a[href]");
-
-                for (int j = 0;j<10 && j < elements.size() ; j++) {
-                    if (!links.contains(elements.get(i).attr(elements.get(i).attr("abs:href"))) && !URLs.contains(elements.get(i).attr(elements.get(i).attr("abs:href")))) {
-                        links.add(elements.get(i).attr("abs:href"));
-                    }
-                }
-                /*for (Element link : elements) {
-                    //log.info( link.attr("abs:href") );
-                    if(!links.contains(link.attr(link.attr("abs:href"))) && !URLs.contains(link.attr(link.attr("abs:href"))) ){
-                        links.add(link.attr("abs:href"));
-                    }else{
-                        break;
-                    }
-
-                }*/
+                links.addAll(getLinks(URLs.get(i)));
             }
 
         }catch (Exception e){
 
         }
+        Set<String> hs = new HashSet<>();
+        hs.addAll(links);
+        links.clear();
+        links.addAll(hs);
         return links;
     }
 
