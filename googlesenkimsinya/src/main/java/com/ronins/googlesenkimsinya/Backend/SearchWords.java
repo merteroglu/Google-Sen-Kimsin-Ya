@@ -246,9 +246,9 @@ public class SearchWords {
         links.addAll(hs);
 
         for (int i = 0; i < links.size(); i++) {
-            if(links.get(i).contains(".pdf") || links.get(i).contains(".xls") || links.get(i).contains(".png") || links.get(i).contains(".jpg")
+            if(!links.get(i).contains(URL) ||  links.get(i).contains(".zip") ||  links.get(i).contains(".rar") ||links.get(i).contains(".pdf") || links.get(i).contains(".xls") || links.get(i).contains(".png") || links.get(i).contains(".jpg")
                 || links.get(i).contains(".jpeg") ||links.get(i).contains(".gif") || links.get(i).contains(".doc") || links.get(i).contains(".docx") ||
-                    links.get(i).contains(".xlsx") || links.get(i).charAt(links.get(i).length()-1) == '#' || links.get(i).equals(URL)
+                    links.get(i).contains(".xlsx") || links.get(i).contains("#") || links.get(i).equals(URL)
                     ){
                links.remove(i);
                i--;

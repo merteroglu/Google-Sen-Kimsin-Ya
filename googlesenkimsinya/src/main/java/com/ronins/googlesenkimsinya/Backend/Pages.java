@@ -1,7 +1,8 @@
 package com.ronins.googlesenkimsinya.Backend;
 
-public class Pages {
+import java.util.List;
 
+public class Pages {
     private String URL;
     private int rank;
     private int wordsCount[];

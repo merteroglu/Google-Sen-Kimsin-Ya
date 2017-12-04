@@ -26,8 +26,7 @@ public class SearchURL {
 
         }
     }
-
-
+/*
     public URL getUrlInfo(String URL){
         List<String> links = new ArrayList<>();
         int wordCounts[] = new int[Words.length];
@@ -131,7 +130,7 @@ public class SearchURL {
                 links.addAll(hs);
 
                 for (int j = 0; j < links.size(); j++) {
-                    if(links.get(j).contains(".pdf") || links.get(j).contains(".xls") || links.get(j).contains(".png") || links.get(j).contains(".jpg")
+                    if(links.get(j).contains(Urls.get(i)) || links.get(j).contains(".pdf") || links.get(j).contains(".xls") || links.get(j).contains(".png") || links.get(j).contains(".jpg")
                             || links.get(j).contains(".jpeg") ||links.get(j).contains(".gif") || links.get(j).contains(".doc") || links.get(j).contains(".docx") ||
                             links.get(j).contains(".xlsx") || links.get(j).charAt(links.get(j).length()-1) == '#' || links.get(j).equals(Urls.get(i))
                             ){
@@ -210,9 +209,9 @@ public class SearchURL {
         log.info("Derinlik 3 alındı");
         return listURLs;
     }
+*/
 
-
-    public double getWebSiteRank(String words,String URL){ // degerin yuksek olmasi kaliteli olduğu anlamına geliyor.
+    public URL getWebSiteRank(String words,String URL){ // degerin yuksek olmasi kaliteli olduğu anlamına geliyor.
         String kelimeler[] = words.split(",");
         double standardError[] = new double[3];
         double keyWordSum[] = new double[3];
@@ -243,6 +242,13 @@ public class SearchURL {
         linkInSubURLs.clear();
         linkInSubURLs.addAll(hs);
         hs.clear();
+
+        for (int  i = 0;  i < linkInSubURLs.size() ;  i++) {
+            if(linksInMainPage.contains(linkInSubURLs.get(i))){
+                linkInSubURLs.remove(i);
+                i--;
+            }
+        }
 
         for (int i = 0; i < linkInSubURLs.size() ; i++) {
             int arrayKelimeler[] = searchWords.getURLWordsCount(linkInSubURLs.get(i),words);
@@ -286,7 +292,14 @@ public class SearchURL {
         }
 
         sumOfURLQualities = URLQuality[0] + (URLQuality[1]*0.5) + (URLQuality[2] * 0.25);
-        return sumOfURLQualities;
+
+        URL newPages = new URL();
+        newPages.setPuan(sumOfURLQualities);
+        newPages.setTekrarSayilari(tekrarSayilari);
+        newPages.setLinksInMainPage(linksInMainPage);
+        newPages.setLinkInSubURLs(linkInSubURLs);
+
+        return newPages;
     }
 
 }

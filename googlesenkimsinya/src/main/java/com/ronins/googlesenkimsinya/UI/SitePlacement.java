@@ -1,5 +1,6 @@
 package com.ronins.googlesenkimsinya.UI;
 
+import com.ronins.googlesenkimsinya.Backend.Pages;
 import com.ronins.googlesenkimsinya.Backend.SearchURL;
 import com.ronins.googlesenkimsinya.Backend.SearchWords;
 import com.ronins.googlesenkimsinya.Backend.URL;
@@ -55,20 +56,52 @@ public class SitePlacement extends UI {
             SearchURL searchURL = new SearchURL(links.getValue(),words.getValue());
             String[] urls = links.getValue().split(",");
             String[] kelimeler = words.getValue().split(",");
-            double[] puanlar = new double[urls.length];
+
+            URL pages[] = new URL[urls.length];
+
+            for (int i = 0; i < urls.length ; i++) {
+                pages[i] = searchURL.getWebSiteRank(words.getValue(),urls[i]);
+            }
+
+            for (int i = 0; i < pages.length ; i++) {
+                pages[i].setSira(1);
+            }
+
+            for (int i = 0; i < pages.length ; i++) {
+                for (int j = i+1; j < pages.length ; j++) {
+                    if(pages[i].getPuan() < pages[j].getPuan()){
+                        pages[i].setSira(pages[i].getSira()+1);
+                    }
+                }
+            }
 
             for (int i = 0; i < urls.length ; i++) {
                 VerticalLayout pagesLayout = new VerticalLayout();
                 pagesLayout.setStyleName("pages-layout");
                 pagesLayout.setWidth("40%");
 
-                puanlar[i] = searchURL.getWebSiteRank(words.getValue(),urls[i]);
                 Label labelURL = new Label("URL : " + urls[i]);
                 labelURL.setStyleName("textLink");
-                Label labelPuan = new Label("Puan :"  +puanlar[i]);
+
+                Label labelSira = new Label("Sira : " + pages[i].getSira());
+                labelSira.setStyleName("textPuan");
+
+                Label labelPuan = new Label("Puan :"  + pages[i].getPuan() );
                 labelPuan.setStyleName("textPuan");
 
-                pagesLayout.addComponents(labelURL,labelPuan);
+                pagesLayout.addComponents(labelURL,labelSira,labelPuan);
+
+
+                int tekrarSayilari[][] = pages[i].getTekrarSayilari();
+                for (int j = 0; j < 3 ; j++) {
+                    Label labelKelimeler = new Label("Derinlik :" + j);
+                    for (int k = 0; k < kelimeler.length ; k++) {
+                        labelKelimeler.setValue(labelKelimeler.getValue() + " ; " + kelimeler[k] + " : " + tekrarSayilari[j][k]);
+                    }
+                    pagesLayout.addComponent(labelKelimeler);
+                }
+
+
                 root.addComponent(pagesLayout);
             }
             log.info("İşlem tamamlandı");

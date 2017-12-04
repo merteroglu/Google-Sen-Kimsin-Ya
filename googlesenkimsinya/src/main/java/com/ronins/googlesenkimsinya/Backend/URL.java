@@ -5,36 +5,18 @@ import java.util.Map;
 
 
 public class URL {
-    String link;
-    int rank;
     double puan;
-    List<String> subURLs;
-    List<URL> subURLList;
-    Map<String,Integer> words;
+    int tekrarSayilari[][];
+    List<String> linksInMainPage;
+    List<String> linkInSubURLs;
+    int sira;
 
-    public List<URL> getSubURLList() {
-        return subURLList;
+    public int getSira() {
+        return sira;
     }
 
-    public void setSubURLList(List<URL> subURLList) {
-        this.subURLList = subURLList;
-    }
-
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public int getRank() {
-        return rank;
-    }
-
-    public void setRank(int rank) {
-        this.rank = rank;
+    public void setSira(int sira) {
+        this.sira = sira;
     }
 
     public double getPuan() {
@@ -45,19 +27,27 @@ public class URL {
         this.puan = puan;
     }
 
-    public List<String> getSubURLs() {
-        return subURLs;
+    public int[][] getTekrarSayilari() {
+        return tekrarSayilari;
     }
 
-    public void setSubURLs(List<String> subURLs) {
-        this.subURLs = subURLs;
+    public void setTekrarSayilari(int[][] tekrarSayilari) {
+        this.tekrarSayilari = tekrarSayilari;
     }
 
-    public Map<String, Integer> getWords() {
-        return words;
+    public List<String> getLinksInMainPage() {
+        return linksInMainPage;
     }
 
-    public void setWords(Map<String, Integer> words) {
-        this.words = words;
+    public void setLinksInMainPage(List<String> linksInMainPage) {
+        this.linksInMainPage = linksInMainPage;
+    }
+
+    public List<String> getLinkInSubURLs() {
+        return linkInSubURLs;
+    }
+
+    public void setLinkInSubURLs(List<String> linkInSubURLs) {
+        this.linkInSubURLs = linkInSubURLs;
     }
 }
