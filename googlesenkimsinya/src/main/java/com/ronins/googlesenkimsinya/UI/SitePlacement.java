@@ -70,7 +70,8 @@ public class SitePlacement extends UI {
             for (int i = 0; i < pages.length ; i++) {
                 for (int j = i+1; j < pages.length ; j++) {
                     if(pages[i].getPuan() < pages[j].getPuan()){
-                        pages[i].setSira(pages[i].getSira()+1);
+                        //pages[i].setSira(pages[i].getSira()+1);
+                        pages[i].sira++;
                     }
                 }
             }

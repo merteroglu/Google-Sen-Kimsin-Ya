@@ -9,7 +9,7 @@ public class URL {
     int tekrarSayilari[][];
     List<String> linksInMainPage;
     List<String> linkInSubURLs;
-    int sira;
+    public int sira;
 
     public int getSira() {
         return sira;
