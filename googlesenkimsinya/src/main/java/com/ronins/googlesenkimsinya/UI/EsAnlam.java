@@ -114,7 +114,7 @@ public class EsAnlam extends UI {
 
                 int tekrarSayilari[][] = pages[i].getTekrarSayilari();
                 for (int j = 0; j < 3 ; j++) {
-                    Label labelKelimeler = new Label("Derinlik :" + j+1);
+                    Label labelKelimeler = new Label("Derinlik :" + (j+1));
                     for (int k = 0; k < esAnlamliKelimeler.size() ; k++) {
                         labelKelimeler.setValue(labelKelimeler.getValue() + " ; " + esAnlamliKelimeler.get(k) + " : " + tekrarSayilari[j][k]);
                     }
