@@ -95,7 +95,7 @@ public class SitePlacement extends UI {
 
                 int tekrarSayilari[][] = pages[i].getTekrarSayilari();
                 for (int j = 0; j < 3 ; j++) {
-                    Label labelKelimeler = new Label("Derinlik :" + j);
+                    Label labelKelimeler = new Label("Derinlik :" + j+1);
                     for (int k = 0; k < kelimeler.length ; k++) {
                         labelKelimeler.setValue(labelKelimeler.getValue() + " ; " + kelimeler[k] + " : " + tekrarSayilari[j][k]);
                     }

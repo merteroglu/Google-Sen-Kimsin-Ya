@@ -88,9 +88,10 @@ public class EsAnlam extends UI {
             }
 
             for (int i = 0; i < pages.length ; i++) {
-                for (int j = i+1; j < pages.length ; j++) {
+                for (int j = 0; j < pages.length ; j++) {
                     if(pages[i].getPuan() < pages[j].getPuan()){
-                        pages[i].setSira(pages[i].getSira()+1);
+                       // pages[i].setSira(pages[i].getSira()+1);
+                        pages[i].sira++;
                     }
                 }
             }
@@ -113,13 +114,12 @@ public class EsAnlam extends UI {
 
                 int tekrarSayilari[][] = pages[i].getTekrarSayilari();
                 for (int j = 0; j < 3 ; j++) {
-                    Label labelKelimeler = new Label("Derinlik :" + j);
+                    Label labelKelimeler = new Label("Derinlik :" + j+1);
                     for (int k = 0; k < esAnlamliKelimeler.size() ; k++) {
                         labelKelimeler.setValue(labelKelimeler.getValue() + " ; " + esAnlamliKelimeler.get(k) + " : " + tekrarSayilari[j][k]);
                     }
                     pagesLayout.addComponent(labelKelimeler);
                 }
-
                 root.addComponent(pagesLayout);
             }
 
