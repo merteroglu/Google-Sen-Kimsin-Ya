@@ -49,8 +49,6 @@ public class SitePlacement extends UI {
         root.addComponents(logo,words,links,btnSearch);
 
 
-
-
         btnSearch.addClickListener(clickEvent -> {
             log.info("Buton tıklandı");
             SearchURL searchURL = new SearchURL(links.getValue(),words.getValue());
@@ -92,7 +90,6 @@ public class SitePlacement extends UI {
 
                 pagesLayout.addComponents(labelURL,labelSira,labelPuan);
 
-
                 int tekrarSayilari[][] = pages[i].getTekrarSayilari();
                 for (int j = 0; j < 3 ; j++) {
                     Label labelKelimeler = new Label("Derinlik :" + (j+1));
@@ -101,7 +98,6 @@ public class SitePlacement extends UI {
                     }
                     pagesLayout.addComponent(labelKelimeler);
                 }
-
 
                 root.addComponent(pagesLayout);
             }

@@ -12,8 +12,6 @@ public class GooglesenkimsinyaApplication{
 		SpringApplication.run(GooglesenkimsinyaApplication.class, args);
 	}
 
-
-
 }
 
 

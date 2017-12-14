@@ -65,7 +65,7 @@ public class SearchWords {
 
             for(int i = 0;i<allWords.length;i++){
                 for (int j = 0; j < kelimeler.length ; j++) {
-                    if(kelimeler[j].equalsIgnoreCase(allWords[i])){
+                    if(kelimeler[j].equalsIgnoreCase(allWords[i]) || trToIng(kelimeler[j]).equalsIgnoreCase(trToIng(allWords[i]))){
                         counts[j]++;
                     }
                 }
@@ -76,6 +76,17 @@ public class SearchWords {
         }
 
     return counts;
+    }
+
+    public String trToIng(String word){
+        String ingWord = word.toLowerCase();
+        ingWord = ingWord.replace('ö','o');
+        ingWord = ingWord.replace('ü','u');
+        ingWord = ingWord.replace('ğ','g');
+        ingWord = ingWord.replace('ş','s');
+        ingWord = ingWord.replace('ı','i');
+        ingWord = ingWord.replace('ç','c');
+        return ingWord;
     }
 
     /*
